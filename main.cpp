@@ -1,7 +1,7 @@
 #include <iostream>
 #include <array>
 #include <algorithm>
-
+#include <cstring>
 #include "inline&overload/inline.h"
 #include "template/template.h"
 using namespace std;
@@ -13,75 +13,141 @@ using namespace std;
 int main() {
 
 
-#if 0   //å†…è”
+#if 1   //ÄÚÁª
     int test{};
     test = add(5,5);
     cout << "Answer:" << test << endl;
 #endif
 
-#if 0   //é‡è½½
+#if 0   //ÖØÔØ
     int test{};
+    test = overload(5, 5);
     test = overload(5, 5.0);
-    cout << "Answer:" << test << endl;
 #endif
 
-#if 0   // æ¨¡æ¿å‡½æ•°
+#if 0  // Ä£°åº¯Êı
     int n = 6;
     int m = 9;
-    char a = 'c';	//'c' å¯¹åº”çš„ascllç å€¼æ˜¯ 99
-    cout << "Max<int, char>(m, a): " << Max(m,a) << endl;	//æ˜¾å¼ç±»å‹è°ƒç”¨
-    cout << "Max(m, a): " << Max(m, a) << endl;	//è‡ªåŠ¨æ•°æ®ç±»å‹æ¨å¯¼
+    char a = 'c';	//'c' ¶ÔÓ¦µÄascllÂëÖµÊÇ 99
+    cout << "ÏÔÊ½ÀàĞÍµ÷ÓÃ£º" << "Max<int, char>(m, a): " << Max(m,a) << endl;	//ÏÔÊ½ÀàĞÍµ÷ÓÃ
+    cout << "×Ô¶¯Êı¾İÀàĞÍÍÆµ¼£º" << "Max(m, a): " << Max(m, a) << endl;	//×Ô¶¯Êı¾İÀàĞÍÍÆµ¼
 
     Son s1(18);
 	Son s2(21);
 
-	cout << "Max(s1, s2): " << Max(s1, s2).getAge() << endl;
 
+	cout << "Max(s1, s2): " << Max(s1, s2).getAge() << endl;
 #endif
 
 
-#if 1   // é™æ€æ•°ç»„ï¼šarray
+#if 0   // ¾²Ì¬Êı×é£ºarray
 
-    // æ•°ç»„åˆå§‹åŒ– å’Œ sortä¾‹å­
-//    int s[3] = {1,2,3}; // ä¸€ç»´æ•°ç»„
-    array<int, 3> s = {1, 2, 3};  // ä¸€ç»´æ•°ç»„
-//    int s2[3][4] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}; // äºŒç»´æ•°ç»„
-    array<array<int, 3>,4> s2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}; // äºŒç»´æ•°ç»„
+    // Êı×é³õÊ¼»¯ ºÍ sortÀı×Ó
+//    int s[3] = {1,2,3}; // Ò»Î¬Êı×é
+    array<int, 3> s = {1, 2, 3};  // Ò»Î¬Êı×é
+//    int s2[3][4] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}; // ¶şÎ¬Êı×é
+    array<array<int, 3>,4> s2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}; // ¶şÎ¬Êı×é
 
-    // ä¸€ç»´æ•°ç»„èŒƒå›´forè¯­å¥
-    for (auto a : s) {
+    // Ò»Î¬Êı×é·¶Î§forÓï¾ä
+    cout << "Ò»Î¬Êı×é·¶Î§forÓï¾ä" << endl;
+    for (auto a : s)
         cout << a << ends;
-    }
 
     cout << endl;
 
-    // äºŒç»´æ•°ç»„èŒƒå›´forè¯­å¥
+    // ¶şÎ¬Êı×é·¶Î§forÓï¾ä
+    cout << "¶şÎ¬Êı×é·¶Î§forÓï¾ä" << endl;
     for (auto &row : s2)
     {
-        for (auto a : row)  //åªè¯»ã€‚å¯è¯»å¯å†™æ”¹æˆfor (auto &a : row)
-        {
+        for (auto a : row)  //Ö»¶Á¡£¿É¶Á¿ÉĞ´¸Ä³Éfor (auto &a : row)
             cout << a << ends;
-        }
         cout << endl;
     }
 
-    // ç”¨è‡ªå®šä¹‰å‡½æ•°å¯¹è±¡æ’åº
+    // ÓÃ×Ô¶¨Òåº¯Êı¶ÔÏóÅÅĞò
+    cout << "ÓÃ×Ô¶¨Òåº¯Êı¶ÔÏóÅÅĞò" << endl;
     struct {
-        bool operator()(int a, int b) const{
+        bool operator()(const int &a, const int &b) const{
             return a > b;
         }
     } customLess;
     sort(s.begin(), s.end(), customLess);
+    for(auto a:s)
+        cout << a << ends;
 
-
-    // æ•°ç»„åŠ¨æ€å†…å­˜
+    // Êı×é¶¯Ì¬ÄÚ´æ
     int number;
     cin >> number;
     float *s3 = new float[number];
 #endif
 
+#if 0   // enum Ã¶¾ÙÀàĞÍ
+
+    enum color_set1 {RED, BLUE, WHITE, BLACK} color1, color2;
+    enum color_set2 {GREEN2, RED2, YELLOW2, WHITE2} color3, color4;
+
+    color3 = RED2;      //½«Ã¶¾Ù³£Á¿Öµ¸³¸øÃ¶¾Ù±äÁ¿
+    color4 = color3;    //ÏàÍ¬ÀàĞÍµÄÃ¶¾Ù±äÁ¿¸³Öµ£¬color4µÄÖµÎªRED2
+    int  i = color3;    //½«Ã¶¾Ù±äÁ¿¸³¸øÕûĞÍ±äÁ¿£¬iµÄÖµÎª1
+    int  j = YELLOW2;   //½«Ã¶¾Ù³£Á¿¸³¸øÕûĞÍ±äÁ¿£¬jµÄÖµÎª0
+
+#endif
+
+#if 0   // ½á¹¹ÌåÀàĞÍ£ºstruct
+
+    // ÏÈ¶¨Òå½á¹¹ÌåÀàĞÍÔÙµ¥¶À½øĞĞ±äÁ¿¶¨Òå
+    struct Student
+    {
+        int Code;
+        char Name[20];
+        char Sex;
+        int Age;
+    };
+    Student Stu;
+    Student StuArray[10];
+    Student *pStu;  // Ò²¿ÉÒÔÓÃnewÀ´¶¯Ì¬´´½¨£¨ÔÚ¶ÑÖĞ£¬Éú´æÖÜÆÚ¾Í¿ÉÒÔ×Ô¼º¾ö¶¨£©
+
+    // ±È½Ï°²È«µÄ´ø¹¹ÔìµÄ½á¹¹Ìå
+    struct node{
+        int data;
+        string str;
+        char x;
+        //×¢Òâ¹¹Ôìº¯Êı×îºóÕâÀïÃ»ÓĞ·ÖºÅÅ¶£¡
+        node() :x(), str(), data(){} //ÎŞ²ÎÊıµÄ¹¹Ôìº¯ÊıÊı×é³õÊ¼»¯Ê±µ÷ÓÃ
+        node(int a, string b, char c) :data(a), str(b), x(c){}//ÓĞ²Î¹¹Ôì
+    };
+    node N1; // ÎŞ²Î¹¹Ôì
+    node N2(10,"abc",'a'); // ÓĞ²Î¹¹Ôì
+
+    // ³õÊ¼»¯ÁĞ±í¸³Öµ
+    Stu = {21,"ChenYiKai",'M',23};
+#endif
+
+
+
+#if 1   // ¹²ÓÃÌåÀàĞÍ£ºunion
+
+    union DEMO{
+        char status;
+        int a;
+        int serial[4];
+    }demo;
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    system("pause");
     return 0;
 }
-

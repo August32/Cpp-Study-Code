@@ -7,7 +7,7 @@
 
 
 //内联
-inline int add(int x,int y){int a = x+y;return a;}
+inline int add(int x,int y){int a = x+y;std::cout << "内联：" << a;return a;}
 
 
 //重载

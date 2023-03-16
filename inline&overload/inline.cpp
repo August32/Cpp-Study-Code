@@ -7,13 +7,13 @@
 using namespace std;
 int overload(int x, int y)
 {
-    cout << "reload1" <<endl;
+    cout << "жиди1ЃК" << (x>y?x:y) << endl;
     return (x>y?x:y);
 
 }
 
 int overload(int x, double y)
 {
-    cout << "reload2" <<endl;
+    cout << "жиди2ЃК" << (x>y?x:y) << endl;
     return (x>y?x:y);
 }
